@@ -25,14 +25,13 @@ parser.add_argument("--output", "-o", nargs=1, help="Output path for the merged 
 args = parser.parse_args()
 
 
-
 if __name__ == "__main__":
     files = args.files
-    directory = None if args.dir == None else str((args.dir)[0])
-    sort = True if args.sort != None else False
-    output = None if args.output == None else str((args.output)[0])
+    directory = None if args.dir is None else str((args.dir)[0])
+    sort = True if args.sort is not None else False
+    output = None if args.output is None else str((args.output)[0])
 
-    if directory != None:
+    if directory is not None:
         if not os.path.exists(directory):
             raise Exception(f"Directory {directory} does not exist.")
 
@@ -44,25 +43,17 @@ if __name__ == "__main__":
         if len(files) == 0:
             print(f"No mp3 files in {directory} directory.")
             exit()
-
-        ans = str(input(f"You sure you want to merge {len(files)} mp3 files in the current directory? (y/n) "))
-        if ans.upper() != "Y":
-            exit()
-    elif files == None: # No files selected
+    elif files is None:  # No files selected
         files = glob.glob("*.mp3")
 
         if len(files) == 0:
             print("No mp3 files in the current directory.")
             exit()
 
-        ans = str(input(f"You sure you want to merge {len(files)} mp3 files in the current directory? (y/n) "))
-        if ans.upper() != "Y":
-            exit()
-
     if sort:
         files = sorted(files)
 
-    if output == None:
+    if output is None:
         output = "merged_mp3_files.mp3"
     else:
         if not output.endswith(".mp3"):
@@ -73,7 +64,7 @@ if __name__ == "__main__":
             raise Exception("Could not create output path.")
 
     print("Merging, please wait...")
-    timer = time.perf_counter() # Elapsed time timer
+    timer = time.perf_counter()  # Elapsed time timer
 
     merged = AudioSegment.empty()
     fConcat = list()
