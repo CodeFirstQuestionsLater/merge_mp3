@@ -15,7 +15,7 @@ for item in os.listdir(current_directory):
         # Construct the command
         output_file = f"{item}.mp3"
         command = [
-            "python3", "merge.py",
+            "python3", "merge_mp3.py",
             "-s",
             "-o", output_file,
             "-d", item_path
